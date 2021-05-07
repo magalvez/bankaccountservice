@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 from datetime import datetime
 
 from app.api.external.trm.trm_api import get_current_trm
@@ -78,7 +79,7 @@ class BankAccountController(object):
         }
         TransactionManager.save(transaction)
 
-        return {'message': 'Your new balance is {0} {1}'.format(format_currency(new_balance), transaction['currency'])}
+        return {'balance': new_balance}
 
     @staticmethod
     def withdrawal_account(account_data):
@@ -87,20 +88,13 @@ class BankAccountController(object):
         :returns dict:, Ie {'message': 'Your ....'}
         """
         if not get(account_data, ['amount']) or not get(account_data, ['account_number']) or \
-                not get(account_data, ['currency']) or get(account_data, ['currency']) not in ['COP', 'USD']:
+                not get(account_data, ['currency']) or not get(account_data, ['trm']) \
+                or get(account_data, ['currency']) not in ['COP', 'USD']:
             raise BadRequest
 
         bank_account = BankAccountManager.get_account(account_data['account_number'])
         if not bank_account:
             raise BankAccountNotFound(account_data['account_number'])
-
-        trm = 0
-        if account_data['currency'] == 'USD':
-            current_date = datetime.today().strftime('%Y-%m-%d')
-            trm_response = get_current_trm(current_date)
-            if get(trm_response, ['data']) and get(trm_response, ['data', 'success']):
-                trm = get(trm_response, ['data', 'value'])
-                account_data['amount'] = account_data['amount'] * trm
 
         if account_data['amount'] > bank_account.balance:
             raise BankAccountInsufficientFounds(account_data['account_number'],
@@ -109,7 +103,7 @@ class BankAccountController(object):
 
         new_balance = bank_account.balance - account_data['amount']
         update_data = {
-            'balance': new_balance
+            'balance': round(new_balance)
         }
         BankAccountManager.update(update_data, bank_account)
 
@@ -118,9 +112,9 @@ class BankAccountController(object):
             'currency': account_data['currency'],
             'type': 'WITHDRAWAL',
             'previous_balance': bank_account.balance,
-            'trm': trm,
+            'trm': account_data['trm'],
             'amount': account_data['amount']
         }
         TransactionManager.save(transaction)
 
-        return {'message': 'Your new balance is {0} COP'.format(format_currency(new_balance))}
+        return {'balance': new_balance}

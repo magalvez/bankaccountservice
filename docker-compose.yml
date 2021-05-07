@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - bankaccountservice
+      - customerservice
     environment:
         - MONGO_DB=bankaccountservice
         - MONGO_URI=mongodb://playbox:pl4yv0x@mongodb:27017/bankaccountservice
@@ -40,6 +41,9 @@ services:
 networks:
   bankaccountservice:
     name: bankaccountservice
+    driver: bridge
+  customerservice:
+    name: customerservice
     driver: bridge
 
 volumes:

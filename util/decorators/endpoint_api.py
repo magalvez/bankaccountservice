@@ -1,4 +1,4 @@
-
+import logging
 from functools import wraps
 
 from util.exceptions.exceptions import ApiResponseNotFound, BankAccountNotFound, BadRequest, \
@@ -41,6 +41,7 @@ def api_resource_endpoint():
                 return handle_exception_json_response(e)
 
             except Exception as e:
+                logging.error('################# Exception Not Handled ################# {}'.format(e))
                 return json_response({'message': 'An error occurred while processing the request. ERROR: {0}'.format(e)}, 500)
 
         return decorator_function
