@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  bankaccountservice:
+    container_name: bankaccountservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - bankaccountservice
+    environment:
+        - MONGO_DB=bankaccountservice
+        - MONGO_URI=mongodb://playbox:pl4yv0x@mongodb:27017/bankaccountservice
+    command: 'python app.py runserver 0.0.0.0:8300'
+    ports:
+        - 8300:8300
+    volumes:
+        - .:/app
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: bankaccountservice_mdb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: p4ssw0rd
+      MONGO_INITDB_USERNAME: playbox
+      MONGO_INITDB_PASSWORD: pl4yv0x
+      MONGO_INITDB_DATABASE: bankaccountservice
+    volumes:
+      - ./mongodb/data:/data/db
+      - ./config/mongo/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./config/mongo/populate-mongo.sh:/docker-entrypoint-initdb.d/populate-mongo.sh
+    ports:
+      - 27101:27017
+    networks:
+      - bankaccountservice
+
+networks:
+  bankaccountservice:
+    name: bankaccountservice
+    driver: bridge
+
+volumes:
+  mongodb:
+    driver: local
