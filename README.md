@@ -26,6 +26,10 @@ db.transaction.insert({"account_number": "000101", "currency": "COP", "type": "W
 
 The data is auto populated each time the folder `mongodb` is deleted
 
+# TEST
+The project contains integrations test using a `In Memory MongoDB database` to validate the endpoints operations,
+you can find it inside the folder `test/api/v1_0`
+
 # Service URL
 http://localhost:8300/
 
