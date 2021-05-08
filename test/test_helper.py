@@ -85,7 +85,6 @@ class JsonAssertMissing(unittest.TestCase):
         self.assertEqual(response.content_type, 'application/json')
 
         if response.data:
-            response_data = deserialize_json(response.data)
             self.assertEqual(response.status_code, code_to_check)
 
 
