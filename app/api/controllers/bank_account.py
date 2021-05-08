@@ -88,13 +88,18 @@ class BankAccountController(object):
         :returns dict:, Ie {'message': 'Your ....'}
         """
         if not get(account_data, ['amount']) or not get(account_data, ['account_number']) or \
-                not get(account_data, ['currency']) or not get(account_data, ['trm']) \
-                or get(account_data, ['currency']) not in ['COP', 'USD']:
+                not get(account_data, ['currency']) or get(account_data, ['currency']) not in ['COP', 'USD']:
+            raise BadRequest
+
+        if account_data['currency'] == 'USD' and not get(account_data, ['trm']):
             raise BadRequest
 
         bank_account = BankAccountManager.get_account(account_data['account_number'])
         if not bank_account:
             raise BankAccountNotFound(account_data['account_number'])
+
+        if account_data['currency'] == 'USD':
+            account_data['amount'] = account_data['amount'] * account_data['trm']
 
         if account_data['amount'] > bank_account.balance:
             raise BankAccountInsufficientFounds(account_data['account_number'],

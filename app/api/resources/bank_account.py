@@ -33,6 +33,7 @@ class BankAccountDepositAPI(Resource):
     User BankAccountDepositAPI Resource
     """
 
+    @jwt_required()
     @api_resource_endpoint()
     def patch(self, account_number):
         """

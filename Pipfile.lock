@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3c6ee02d517f3e66e4b79bacb5c51fcba277883308d01bd8e6c40e95ebe2a6cb"
+            "sha256": "c8d412c725ac349fb016e250d25ce03f40f5304ac2349581f24e50a4cc599533"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -44,6 +44,15 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==7.1.2"
+        },
+        "contexter": {
+            "hashes": [
+                "sha256:36a3a6bb80c6e4bab33ec98c6f394fa8deb433eb2154346e4244deef44230822",
+                "sha256:9d268cf13dfef3c1eb28d791b650b959126c500abc5b6ad6349ec502ac32a19c",
+                "sha256:c730890b1a915051414a6350d8ea1cddca7d01d8f756badedb30b9bf305ea0a8"
+            ],
+            "index": "pypi",
+            "version": "==0.1.4"
         },
         "dnspython": {
             "hashes": [
@@ -273,6 +282,14 @@
             ],
             "version": "==3.11.4"
         },
+        "pymongo-inmemory": {
+            "hashes": [
+                "sha256:4340f3a6264bab787aaf7846842bd20e805f10eb1c42f7e24a90c17acf800d71",
+                "sha256:c132829edf02d532033e4dc64f4626ba658332916cfb69997e92ef522a66f768"
+            ],
+            "index": "pypi",
+            "version": "==0.2.0"
+        },
         "pytz": {
             "hashes": [
                 "sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da",
@@ -326,11 +343,11 @@
     "develop": {
         "attrs": {
             "hashes": [
-                "sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6",
-                "sha256:832aa3cde19744e49938b91fea06d69ecb9e649c93ba974535d08ad92164f700"
+                "sha256:149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1",
+                "sha256:ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==20.3.0"
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
+            "version": "==21.2.0"
         },
         "importlib-metadata": {
             "hashes": [

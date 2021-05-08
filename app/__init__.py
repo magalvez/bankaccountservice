@@ -13,7 +13,7 @@ TRM_USER_SERVICE_URL = 'https://trm-colombia.vercel.app/?date={}'
 app = Flask(__name__)
 
 app.config['MONGODB_SETTINGS'] = {
-    'host': environ.get('MONGO_URI') or 'mongodb://playbox:pl4yv0x@localhost:27101/bankaccountservice'
+    'host': environ.get('MONGO_URI') or 'mongodb://127.0.0.1:27010/bankaccountservice'
 }
 
 db = MongoEngine()
