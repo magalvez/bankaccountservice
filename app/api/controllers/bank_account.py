@@ -98,9 +98,7 @@ class BankAccountController(object):
             account_data['amount'] = account_data['amount'] * account_data['trm']
 
         if account_data['amount'] > bank_account.balance:
-            raise BankAccountInsufficientFounds(account_data['account_number'],
-                                                account_data['amount'],
-                                                account_data['currency'])
+            return {'balance': -1}
 
         new_balance = bank_account.balance - account_data['amount']
         update_data = {
