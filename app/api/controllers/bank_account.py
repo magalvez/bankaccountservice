@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import logging
-from datetime import datetime
 
-from app.api.external.trm.trm_api import get_current_trm
 from app.api.managers.bank_account import BankAccountManager
 from app.api.managers.transaction import TransactionManager
 from util.dict_helper import get
 from util.exceptions.exceptions import BadRequest, BankAccountNotFound, BankAccountUserNotFound, \
     BankAccountInsufficientFounds
-from util.format import format_currency
 
 
 class BankAccountController(object):
@@ -103,7 +99,7 @@ class BankAccountController(object):
 
         if account_data['amount'] > bank_account.balance:
             raise BankAccountInsufficientFounds(account_data['account_number'],
-                                                format_currency(account_data['amount']),
+                                                account_data['amount'],
                                                 account_data['currency'])
 
         new_balance = bank_account.balance - account_data['amount']
