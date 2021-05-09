@@ -11,7 +11,7 @@ from test.test_helper import BaseTest, TestHttpRequest
 
 class DepositTest(BaseTest):
     """
-    Set of tests for withdrawal endpoint
+    Set of tests for deposit endpoint
     """
 
     deposit_data = {
